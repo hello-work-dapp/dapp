@@ -28,7 +28,7 @@ const ConversationList = ({
         </div>
       )}
       <ConversationCard
-        key={'support'}
+        key={'The devs :)'}
         latestMessage={
           { messageContent: 'Ask me anything', timestamp: 0 } as unknown as XmtpChatMessage
         }
