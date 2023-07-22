@@ -8,6 +8,20 @@ Making work as simple as a chat
 - `npm install`
 - `npm run dev`
 
+## Features 
+
+**We integrate directly into the chat two kind of features:**
+- Chat command: Similar than discord, start with a slash, and launch a action that here will lead to action on chain
+- Custom render and CTA: Message that include some specific text are parsed and render with a custom designe included call to action 
+Both allow a really easy way for users to do handle there collaboration directly from the chat.
+
+**These are the features:**
+- Command to create a gig: `/create-service Audit SmartContract for 10 MATIC`
+- Custom message to render a Gig and his metadata
+- CTA to create automatically the proposal link to a gig
+- CTA to send the fund to the escrow and validate the proposal
+- Command to release fund for a given service: `/release #338 50%`
+
 # Powered BY
 ### 🛠️ TalentLayer
 
