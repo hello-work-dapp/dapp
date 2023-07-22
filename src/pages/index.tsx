@@ -1,9 +1,13 @@
 import {
   BanknotesIcon,
+  BoltIcon,
   BriefcaseIcon,
   ChatBubbleBottomCenterTextIcon,
+  HeartIcon,
   SparklesIcon,
+  StarIcon,
 } from '@heroicons/react/24/outline';
+import { LockClosed } from 'heroicons-react';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -62,9 +66,9 @@ function Home() {
                   <li className='menu-item'>
                     <a
                       onClick={() => setIsOpen(false)}
-                      href='#work-process'
+                      href='#testimonials'
                       className='menu-scroll inline-flex items-center text-base font-medium text-black hover:text-redpraha   lg:py-7'>
-                      How It Works
+                      Testimonials
                     </a>
                   </li>
                   <li className='menu-item'>
@@ -97,18 +101,17 @@ function Home() {
               <div className='w-full px-4 lg:w-7/12'>
                 <div className='wow fadeInUp mb-12 lg:mb-0 lg:max-w-[570px]' data-wow-delay='.2s'>
                   <span className='mb-5 block text-lg font-medium leading-tight text-black  sm:text-[22px] xl:text-[22px]'>
-                    Ready to Use NextJS dapp.
+                    👋
                   </span>
                   <h1 className='mb-6 text-3xl font-bold leading-tight text-black  sm:text-[40px] md:text-[50px] lg:text-[42px] xl:text-[50px]'>
-                    Using
+                    Making
                     <span className='inline bg-redpraha bg-clip-text text-transparent mx-2'>
-                      TalentLayer & XMTP
+                      work
                     </span>
-                    protocols.
+                    as simple as a chat
                   </h1>
                   <p className='mb-10 max-w-[475px] text-base leading-relaxed text-body'>
-                    All essential components to start building an amazing dapp with interoperable
-                    work and messaging
+                    Simplyfing work transactions while increasing security and privacy
                   </p>
 
                   <div className='flex flex-wrap items-center'>
@@ -117,19 +120,10 @@ function Home() {
                       href='https://github.com/TalentLayer-Labs/starter-kit'
                       className='mr-6 mb-6 inline-flex h-[60px] items-center rounded-lg bg-black py-[14px] px-[30px] text-white hover:bg-opacity-90'>
                       <span className='mr-[18px] border-r border-stroke border-opacity-40 pr-[18px] leading-relaxed '>
-                        Fork Now
+                        Work Now
                       </span>
-                      <span>
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          width='24'
-                          height='24'
-                          viewBox='0 0 24 24'>
-                          <path
-                            fill='#FFF'
-                            d='M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z'
-                          />
-                        </svg>
+                      <span className='text-white'>
+                        <BoltIcon width={18} height={18} />
                       </span>
                     </a>
 
@@ -243,12 +237,12 @@ function Home() {
               className='wow fadeInUp mx-auto mb-14 max-w-[690px] text-center lg:mb-[70px]'
               data-wow-delay='.2s'>
               <h2 className='mb-4 text-3xl font-bold text-black  sm:text-4xl md:text-[44px] md:leading-tight'>
-                Amazing features to make your work easier
+                Amazing features to make work transactions easier
               </h2>
               <p className='text-base text-body'>
-                With value-added features and a user-friendly environment, our starter kit empowers
-                you to unlock the full potential of TalentLayer and XMTP, enabling the creation of
-                an outstanding dapp experience
+                Dive into the world of Hello Work, where making connections and securing gigs is as
+                easy as a friendly chat. Begin your journey today, and discover how we're
+                transforming work one conversation at a time.
               </p>
             </div>
           </div>
@@ -292,10 +286,11 @@ function Home() {
                       </svg>
                     </div>
                     <h3 className='mb-4 text-xl font-semibold text-black  sm:text-[22px] xl:text-[26px]'>
-                      Identity
+                      Universal Work Profile
                     </h3>
                     <p className='text-base text-body'>
-                      Easily create and manage user identities with TalentLayerId soulbound NFT
+                      The last work profile you'll ever need, with TalentLayer create a universal
+                      profile usable across multiple platforms
                     </p>
                   </div>
                 </div>
@@ -311,7 +306,8 @@ function Home() {
                       Web3 messaging
                     </h3>
                     <p className='text-base text-body'>
-                      Enable direct and secure messaging between wallets using XMTP
+                      Experience the combination of privacy, security, and simplicity in a chat
+                      system that integrates directly work features
                     </p>
                   </div>
                 </div>
@@ -327,7 +323,8 @@ function Home() {
                       Gig & proposal workflow
                     </h3>
                     <p className='text-base text-body'>
-                      Smart contract interractions to connect with the TalentLayer open network
+                      Redefines the traditional work process, making it as straightforward as
+                      sending a message from agreement to payment.
                     </p>
                   </div>
                 </div>
@@ -343,7 +340,8 @@ function Home() {
                       Secured escrow
                     </h3>
                     <p className='text-base text-body'>
-                      Ensure trust and security in transactions with TalentLayer escrow system
+                      Uses the power of blockchain technology to back every transaction, bolstering
+                      trust between parties
                     </p>
                   </div>
                 </div>
@@ -353,30 +351,14 @@ function Home() {
                     className='wow fadeInUp group mx-auto mb-[60px] max-w-[310px] text-center'
                     data-wow-delay='.3s'>
                     <div className='mx-auto mb-8 flex h-[90px] w-[90px] items-center justify-center rounded-3xl bg-redpraha bg-opacity-20 text-redpraha duration-300 group-hover:bg-redpraha group-hover:text-white   '>
-                      <svg
-                        width='40'
-                        height='40'
-                        viewBox='0 0 40 40'
-                        fill='none'
-                        xmlns='http://www.w3.org/2000/svg'>
-                        <g clip-path='url(#clip0_211_943)'>
-                          <path
-                            d='M11.2535 28.9978C11.5633 28.1197 12.1379 27.3593 12.898 26.8215C13.6581 26.2837 14.5663 25.9949 15.4974 25.9949C16.4286 25.9949 17.3368 26.2837 18.0969 26.8215C18.857 27.3593 19.4316 28.1197 19.7414 28.9978H34.9927V31.9971H19.7414C19.4316 32.8751 18.857 33.6355 18.0969 34.1733C17.3368 34.7112 16.4286 35 15.4974 35C14.5663 35 13.6581 34.7112 12.898 34.1733C12.1379 33.6355 11.5633 32.8751 11.2535 31.9971H5V28.9978H11.2535ZM20.2513 18.5004C20.5611 17.6223 21.1357 16.8619 21.8958 16.3241C22.6559 15.7862 23.5641 15.4974 24.4952 15.4974C25.4264 15.4974 26.3346 15.7862 27.0947 16.3241C27.8548 16.8619 28.4294 17.6223 28.7392 18.5004H34.9927V21.4996H28.7392C28.4294 22.3777 27.8548 23.1381 27.0947 23.6759C26.3346 24.2138 25.4264 24.5026 24.4952 24.5026C23.5641 24.5026 22.6559 24.2138 21.8958 23.6759C21.1357 23.1381 20.5611 22.3777 20.2513 21.4996H5V18.5004H20.2513ZM11.2535 8.00294C11.5633 7.12486 12.1379 6.36449 12.898 5.82666C13.6581 5.28882 14.5663 5 15.4974 5C16.4286 5 17.3368 5.28882 18.0969 5.82666C18.857 6.36449 19.4316 7.12486 19.7414 8.00294H34.9927V11.0022H19.7414C19.4316 11.8803 18.857 12.6407 18.0969 13.1785C17.3368 13.7163 16.4286 14.0051 15.4974 14.0051C14.5663 14.0051 13.6581 13.7163 12.898 13.1785C12.1379 12.6407 11.5633 11.8803 11.2535 11.0022H5V8.00294H11.2535Z'
-                            fill='currentColor'
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id='clip0_211_943'>
-                            <rect width='40' height='40' fill='white' />
-                          </clipPath>
-                        </defs>
-                      </svg>
+                      <StarIcon width={48} height={48} />
                     </div>
                     <h3 className='mb-4 text-xl font-semibold text-black  sm:text-[22px] xl:text-[26px]'>
                       Reputation
                     </h3>
                     <p className='text-base text-body'>
-                      Empowers users to review each other fostering trust within your dapp
+                      Build a valuable reputation for your future usable across multiple platforms,
+                      amplifying its value like never before
                     </p>
                   </div>
                 </div>
@@ -386,17 +368,17 @@ function Home() {
                     className='wow fadeInUp group mx-auto mb-[60px] max-w-[310px] text-center'
                     data-wow-delay='.4s'>
                     <div className='mx-auto mb-8 flex h-[90px] w-[90px] items-center justify-center rounded-3xl bg-redpraha bg-opacity-20 text-redpraha duration-300 group-hover:bg-redpraha group-hover:text-white   '>
-                      <SparklesIcon width={48} height={48} />
+                      <LockClosed width={38} height={38} />
                     </div>
                     <h3 className='mb-4 text-xl font-semibold text-black  sm:text-[22px] xl:text-[26px]'>
-                      Landing page
+                      Privacy
                     </h3>
                     {/* <div className='absolute top-[-5px] right-[40px] md:right-[100px] p-2 bg-redpraha text-white text-xs rounded-md'>
                       Coming Soon
                     </div> */}
                     <p className='text-base text-body'>
-                      This landing is part of the starter, please customize it with your brand and
-                      features!
+                      Your Data, Your Control: we ensure that you retain ownership of your content,
+                      with no servers holding your data
                     </p>
                   </div>
                 </div>
@@ -569,16 +551,17 @@ function Home() {
                 <div className='w-full px-4 lg:w-1/2'>
                   <div className='wow fadeInUp lg:ml-auto lg:max-w-[510px]' data-wow-delay='.3s'>
                     <span className='mb-4 block text-lg font-medium text-redpraha md:text-[22px]'>
-                      The open source starterKit
+                      About HelloWork
                     </span>
                     <h2 className='mb-4 text-3xl font-bold text-black  sm:text-4xl md:text-[44px] md:leading-tight'>
-                      Build the future of Work
+                      Meet the future of Work
                     </h2>
                     <p className='mb-[30px] text-base leading-relaxed text-body'>
-                      This project aims to help builders and hackers to start fast on using XMTP and
-                      TalentLayer protocols. It contains demo code for all the previous features.
-                      <br />
-                      These are some examples of what you can build:
+                      Hello Work is more than just an app—it's the gateway to the future of work. By
+                      leveraging the robust capabilities of two powerful protocols, TalentLayer and
+                      XMTP, we're unlocking unprecedented possibilities. We're committed to making
+                      work as simple as a chat, helping you navigate this new work landscape with
+                      ease and efficiency.
                     </p>
 
                     <div className='mb-[30px] flex items-center'>
@@ -586,14 +569,10 @@ function Home() {
                         01
                       </div>
                       <div>
-                        <h5 className='text-xl font-medium text-black '>
-                          In-Chat Bounty Management
-                        </h5>
+                        <h5 className='text-xl font-medium text-black '>XMTP</h5>
                         <p className='text-base text-body'>
-                          a messaging app with native features to manage hiring and paying bounties.
-                          Imagine if you could submit your hackathon project, get it approved for a
-                          bounty, and receive payment, all with a few DMs, without leaving your
-                          messaging app.
+                          XMTP is an open protocol and dev toolkit for messaging applications. You
+                          can use it to build peer-to-peer messaging
                         </p>
                       </div>
                     </div>
@@ -603,11 +582,11 @@ function Home() {
                         02
                       </div>
                       <div>
-                        <h5 className='text-xl font-medium text-black '>In-Chat Gig transaction</h5>
+                        <h5 className='text-xl font-medium text-black '>TalentLayer</h5>
                         <p className='text-base text-body'>
-                          Imagine an app tailored for freelancers, enabling effortless communication
-                          with clients, seamless agreement on gigs, and secure payments all through
-                          simple messaging.
+                          TalentLayer is an open protocol and dev toolkit for hiring applications.
+                          You can use it to build platforms that leverage a unified decentralized
+                          backend for job posts, escrow, user profiles, and reputations.
                         </p>
                       </div>
                     </div>
@@ -641,7 +620,7 @@ function Home() {
           </div>
         </section>
 
-        <section id='work-process' className='relative z-10 pt-[110px]'>
+        {/* <section id='work-process' className='relative z-10 pt-[110px]'>
           <div className='container'>
             <div
               className='wow fadeInUp mx-auto mb-14 max-w-[690px] text-center lg:mb-[70px]'
@@ -853,7 +832,7 @@ function Home() {
               </defs>
             </svg>
           </div>
-        </section>
+        </section> */}
 
         <section id='testimonials' className='relative z-10 pt-[110px] pb-[60px]'>
           <div className='container'>
@@ -861,12 +840,12 @@ function Home() {
               className='wow fadeInUp mx-auto mb-14 max-w-[690px] text-center lg:mb-[70px]'
               data-wow-delay='.2s'>
               <h2 className='mb-4 text-3xl font-bold text-black  sm:text-4xl md:text-[44px] md:leading-tight'>
-                What Dev's Say
+                What users's Say
               </h2>
               <p className='text-base text-body'>
                 We highly value feedback from our users as it plays a crucial role in enhancing our
-                starter kit, refining the user experience, and continuously improving the features
-                and functionality to meet the evolving needs of our community.
+                app, refining the user experience, and continuously improving the features and
+                functionality to meet the evolving needs of our community.
               </p>
             </div>
           </div>
@@ -879,11 +858,11 @@ function Home() {
                   data-wow-delay='.2s'>
                   <div className='mb-5 border-b border-stroke'>
                     <p className='pb-9 text-base text-body'>
-                      The integration process of the TalentLayer and XMTP protocols was seamless
-                      using your starter kit. It saved us a significant amount of time and effort,
-                      allowing us to focus more on building unique features for our dapp. The
-                      documentation provided was clear and comprehensive, making it easy for our
-                      development team to understand and utilize the kit effectively.
+                      As a freelance designer, finding reliable gigs was always a struggle. Then I
+                      discovered Hello Work. With its easy chat feature, I was able to discuss and
+                      secure projects seamlessly. The secure escrow system gave me peace of mind,
+                      knowing that my payment was guaranteed. Thanks to Hello Work, I've found a
+                      platform that truly understands and supports freelancers.
                     </p>
                   </div>
 
@@ -897,8 +876,8 @@ function Home() {
                         />
                       </div>
                       <div>
-                        <h5 className='text-base font-medium text-black '>Martin</h5>
-                        <p className='text-sm text-body'>Fullstack dev</p>
+                        <h5 className='text-base font-medium text-black '>Jamie</h5>
+                        <p className='text-sm text-body'>Freelance Graphic Designer</p>
                       </div>
                     </div>
 
@@ -1042,12 +1021,11 @@ function Home() {
                   data-wow-delay='.3s'>
                   <div className='mb-5 border-b border-stroke'>
                     <p className='pb-9 text-base text-body'>
-                      We appreciate the value-added features included in your starter kit. The
-                      pre-built components and streamlined development environment made it simple to
-                      create a great dapp experience quickly. Additionally, the responsiveness of
-                      your support team in addressing our queries and providing guidance was
-                      outstanding. <br />
-                      Thank you :)
+                      I run a small digital marketing agency, and Hello Work has been a game-changer
+                      for us. We've been able to find talented freelancers for various projects with
+                      just a few chats. The transparency and security provided by the blockchain
+                      technology have made transactions worry-free. I'm thrilled with the time and
+                      resources we've saved, all thanks to Hello Work.
                     </p>
                   </div>
 
@@ -1062,7 +1040,7 @@ function Home() {
                       </div>
                       <div>
                         <h5 className='text-base font-medium text-black '>Tonio</h5>
-                        <p className='text-sm text-body'>Entreprener</p>
+                        <p className='text-sm text-body'>Small Business Owner</p>
                       </div>
                     </div>
 
@@ -1212,9 +1190,10 @@ function Home() {
                 Frequently Asked Questions
               </h2>
               <p className='text-base text-body'>
-                Find answers to commonly asked questions about our Next.js starter kit for
-                TalentLayer and XMTP integration, helping you navigate through the implementation
-                process and make the most out of the powerful features provided.
+                Got questions about Hello Work? We're here to clarify things for you. Below are some
+                of the most commonly asked questions about our platform, complete with concise,
+                helpful answers. If you don't find your question here, feel free to reach out -
+                we're always here to chat.
               </p>
             </div>
 
@@ -1223,50 +1202,53 @@ function Home() {
               data-wow-delay='.3s'>
               <div className='faq border-b border-stroke last-of-type:border-none'>
                 <button className='faq-btn relative flex w-full justify-between pt-6 pb-1 px-[18px] text-left text-base font-medium text-black  sm:px-[26px] sm:text-lg'>
-                  Are there any specific requirements or dependencies for using the starter kit?
-                </button>
-                <div className='pb-4 h-auto overflow-hidden px-[18px] sm:px-[26px]'>
-                  <p className='text-base text-body'>Just NodeJS & npm</p>
-                </div>
-              </div>
-
-              <div className='faq border-b border-stroke last-of-type:border-none'>
-                <button className='faq-btn relative flex w-full justify-between pt-6 pb-1 px-[18px] text-left text-base font-medium text-black  sm:px-[26px] sm:text-lg'>
-                  Do I need an admin account for XMTP?
+                  How does Hello Work ensure the security of my transactions?
                 </button>
                 <div className='pb-4 h-auto overflow-hidden px-[18px] sm:px-[26px]'>
                   <p className='text-base text-body'>
-                    No, you do not need an admin account to use XMTP. The XMTP protocol is designed
-                    to be plug and play, allowing users to seamlessly integrate and utilize its
-                    functionality without the need for an admin account.
+                    Hello Work uses advanced blockchain technology to secure your transactions. This
+                    ensures that your payment is held securely in escrow until you're satisfied with
+                    the work completed.
                   </p>
                 </div>
               </div>
 
               <div className='faq border-b border-stroke last-of-type:border-none'>
                 <button className='faq-btn relative flex w-full justify-between pt-6 pb-1 px-[18px] text-left text-base font-medium text-black  sm:px-[26px] sm:text-lg'>
-                  Can I extend the review system to include additional criteria or metrics?
+                  What is TalentLayer and how does it benefit me?
                 </button>
                 <div className='pb-4 h-auto overflow-hidden px-[18px] sm:px-[26px]'>
                   <p className='text-base text-body'>
-                    Yes, TalentLayer the minimum viable for interoperability. You can add any other
-                    fields in the IPFS json linked to a review. This is also the case for user
-                    profile and service data.
+                    TalentLayer is a powerful protocol that allows you to create a universal work
+                    profile. This means your profile, complete with your skills, experience, and
+                    reviews, can be used across multiple platforms, not just Hello Work.
                   </p>
                 </div>
               </div>
 
               <div className='faq border-b border-stroke last-of-type:border-none'>
                 <button className='faq-btn relative flex w-full justify-between pt-6 pb-1 px-[18px] text-left text-base font-medium text-black  sm:px-[26px] sm:text-lg'>
-                  Do I need a TalentLayer platform Id?
+                  How does the chat system work in Hello Work?
                 </button>
                 <div className='pb-4 h-auto overflow-hidden px-[18px] sm:px-[26px]'>
                   <p className='text-base text-body'>
-                    Yes it's better to mint your platformId, it will let you configure your
-                    platform, define fees and other important setup.{' '}
-                    <a className='underline' href='https://docs.talentlayer.org/get-a-platform-id'>
-                      See more here
-                    </a>
+                    Our chat system is designed to be secure, private, and powerful. You can discuss
+                    gig details, conclude work agreements, and send funds, all within the chat
+                    interface. It's powered by Web3 technology for enhanced security.
+                  </p>
+                </div>
+              </div>
+
+              <div className='faq border-b border-stroke last-of-type:border-none'>
+                <button className='faq-btn relative flex w-full justify-between pt-6 pb-1 px-[18px] text-left text-base font-medium text-black  sm:px-[26px] sm:text-lg'>
+                  Can I use Hello Work for different types of gigs?
+                </button>
+                <div className='pb-4 h-auto overflow-hidden px-[18px] sm:px-[26px]'>
+                  <p className='text-base text-body'>
+                    Absolutely! Hello Work is designed to cater to a wide range of gigs across
+                    various fields. Whether you're a graphic designer, content writer, or a home
+                    service provider, you can find and secure gigs suited to your skills and
+                    preferences.
                   </p>
                 </div>
               </div>
@@ -1335,8 +1317,7 @@ function Home() {
                 Need any help?
               </h2>
               <p className='text-base text-body'>
-                Please contact us on the hackhathon discords or direclty inside the dapp using xmtp
-                support conversation :)
+                Please contact us on the support conversation directly accessible inside the app :)
               </p>
             </div>
           </div>
@@ -1349,7 +1330,7 @@ function Home() {
             <div className='-mx-3 flex flex-wrap'>
               <div className='order-last w-full px-3 lg:order-first lg:w-1/3'>
                 <p className='mt-4 text-center text-base text-white lg:mt-0 lg:text-left'>
-                  &copy; 2023 StartKit
+                  &copy; 2023 HelloWork
                 </p>
               </div>
 
