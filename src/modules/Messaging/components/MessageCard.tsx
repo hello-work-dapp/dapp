@@ -8,6 +8,7 @@ import ServiceMessageCard from './ServiceMessageCard';
 import { extractID } from '../../../utils/messageParser';
 import ProposalMessageCard from './proposalMessageCard';
 import ProposalValidatedMessageCard from './ProposalValidatedMessageCard';
+import ReleaseMessageCard from './ReleaseMessageCard';
 
 interface IMessageCardProps {
   message: XmtpChatMessage;
@@ -23,6 +24,8 @@ const formatMessage = (message: string) => {
     return <ProposalMessageCard id={id} />;
   } else if (message.includes('/validate-proposal') && id) {
     return <ProposalValidatedMessageCard id={id} />;
+  } else if (message.includes('/release')) {
+    return <ReleaseMessageCard message={message} />;
   }
   return message;
 };
