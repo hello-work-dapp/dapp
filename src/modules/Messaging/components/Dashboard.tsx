@@ -1,4 +1,3 @@
-import { ethers } from 'ethers';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { useProvider, useSigner } from 'wagmi';
@@ -7,17 +6,14 @@ import HelloWorkContext from '../../../context/helloWork';
 import { createService } from '../../../contracts/createService';
 import useAllowedTokens from '../../../hooks/useAllowedTokens';
 import { useChainId } from '../../../hooks/useChainId';
-import { useConfig } from '../../../hooks/useConfig';
-import useUserByAddress from '../../../hooks/useUserByAddress';
+import { extractCreateServiceDetails } from '../../../utils/messageParser';
 import { XmtpContext } from '../context/XmtpContext';
 import useSendMessage from '../hooks/useSendMessage';
 import useStreamConversations from '../hooks/useStreamConversations';
 import { NON_EXISTING_XMTP_USER_ERROR_MESSAGE } from '../hooks/useStreamMessages';
-import { ChatMessageStatus, XmtpChatMessage } from '../utils/types';
 import CardHeader from './CardHeader';
 import MessageComposer from './MessageComposer';
 import MessageList from './MessageList';
-import { extractCreateServiceDetails } from '../../../utils/messageParser';
 
 function Dashboard() {
   const chainId = useChainId();
@@ -39,7 +35,6 @@ function Dashboard() {
     (selectedConversationPeerAddress as string) ? selectedConversationPeerAddress : '',
     account?.address,
   );
-  const peerUser = useUserByAddress(selectedConversationPeerAddress);
 
   // Listens to new conversations ? ==> Yes, & sets them in "xmtp context". Stream stops "onDestroy"
   useStreamConversations();
@@ -55,8 +50,8 @@ function Dashboard() {
       setSendingPending(true);
 
       let customMessageContent = messageContent;
-      console.log('sendNewMessage');
-      if (messageContent.includes('create-service')) {
+      if (messageContent.includes('/create-service')) {
+        console.log('sendNewMessage createService', customMessageContent);
         const values = extractCreateServiceDetails(messageContent);
         try {
           const newId = await createService(
@@ -74,63 +69,16 @@ function Dashboard() {
         }
       }
 
-      console.log('GigMessageCardCreate', customMessageContent);
-      const sentMessage: XmtpChatMessage = {
-        from: account.address,
-        to: selectedConversationPeerAddress,
-        messageContent: customMessageContent,
-        timestamp: new Date(),
-        status: ChatMessageStatus.PENDING,
-      };
-      const cloneState = { ...providerState };
-      const allMessages = cloneState.conversationMessages;
-      let messages = cloneState.conversationMessages.get(selectedConversationPeerAddress);
-      if (messages) {
-        // If Last message in error, remove it & try to resend
-        if (messageSendingErrorMsg) {
-          messages.pop();
-          setMessageSendingErrorMsg('');
-        }
-        messages.push(sentMessage);
-        allMessages.set(selectedConversationPeerAddress, messages);
-      } else {
-        // If no messages, create new ChatMessage array
-        allMessages.set(selectedConversationPeerAddress, [sentMessage]);
-      }
-
       try {
-        //Send message
-        setProviderState({
-          ...providerState,
-          conversationMessages: allMessages,
-        });
-        const response = await sendMessage(customMessageContent);
-        // Update message status & timestamp
-        sentMessage.status = ChatMessageStatus.SENT;
-        sentMessage.timestamp = response.sent;
-
-        messages = allMessages.get(selectedConversationPeerAddress);
-        messages?.pop();
-        messages?.push(sentMessage);
+        await sendMessage(customMessageContent);
         setMessageContent('');
       } catch (error) {
         setSendingPending(false);
         setMessageSendingErrorMsg(
           'An error occurred while sending the message. Please try again later.',
         );
-        // If message in error, update last message' status to ERROR
-        sentMessage.status = ChatMessageStatus.ERROR;
-        messages?.pop();
-        messages?.push(sentMessage);
         console.error(error);
       } finally {
-        if (messages) {
-          allMessages.set(selectedConversationPeerAddress, messages);
-        }
-        setProviderState({
-          ...providerState,
-          conversationMessages: allMessages,
-        });
         setSendingPending(false);
       }
     }

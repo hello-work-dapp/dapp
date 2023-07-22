@@ -5,7 +5,6 @@ import { IService, IUser } from '../types';
 import { postToIPFS } from '../utils/ipfs';
 import { getProposalSignature } from '../utils/signature';
 import { createMultiStepsTransactionToast, showErrorTransactionToast } from '../utils/toast';
-import { parseRateAmount } from '../utils/web3';
 import ServiceRegistry from './ABI/TalentLayerService.json';
 
 export const createProposal = async (
@@ -20,16 +19,9 @@ export const createProposal = async (
 
   if (provider && signer && service.description?.rateAmount && service.description?.rateToken) {
     try {
-      const parsedRateAmount = await parseRateAmount(
-        service.description.rateAmount.toString(),
-        service.description.rateToken,
-        config.tokens[service.description.rateToken].decimals,
-      );
       const now = Math.floor(Date.now() / 1000);
       const convertExpirationDate = now + 60 * 60 * 24 * 15;
       const convertExpirationDateString = convertExpirationDate.toString();
-
-      const parsedRateAmountString = parsedRateAmount.toString();
 
       const cid = await postToIPFS(
         JSON.stringify({
@@ -50,11 +42,12 @@ export const createProposal = async (
         ServiceRegistry.abi,
         signer,
       );
+
       const tx = await contract.createProposal(
         user.id,
         service.id,
         service.description.rateToken,
-        parsedRateAmountString,
+        service.description.rateAmount.toString(),
         process.env.NEXT_PUBLIC_PLATFORM_ID,
         cid,
         convertExpirationDateString,
@@ -70,7 +63,7 @@ export const createProposal = async (
         },
         provider,
         tx,
-        'proposalRequest',
+        'proposal',
         cid,
       );
       return newId;

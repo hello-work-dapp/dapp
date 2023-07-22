@@ -3,7 +3,7 @@ import { Check, X } from 'heroicons-react';
 import { useState } from 'react';
 import { useBalance, useProvider, useSigner } from 'wagmi';
 import { FEE_RATE_DIVIDER } from '../../config';
-import { validateProposal } from '../../contracts/acceptProposal';
+import { validateProposal } from '../../contracts/validateProposal';
 import useFees from '../../hooks/useFees';
 import ContactButton from '../../modules/Messaging/components/ContactButton';
 import { IAccount, IProposal } from '../../types';

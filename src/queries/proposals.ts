@@ -99,16 +99,52 @@ export const getProposalById = (chainId: number, id: string): Promise<any> => {
   const query = `
       {
         proposals(where: {id: "${id}"}) {
+          service {
+            id,
+            cid
+            buyer {
+              id
+            }
+            platform {
+              id
+            }
+            description {
+              title
+            }
+          }
+          cid
+          id
+          status
           rateToken {
             address
+            decimals
+            name
+            symbol
           }
           rateAmount
+          createdAt
+          updatedAt
+          seller {
+            id
+            handle
+            address
+            cid
+            rating
+            userStats {
+              numReceivedReviews
+            }
+          }
           description {
+            id
             about
+            expectedHours
+            startDate
             video_url
           }
-          status
           expirationDate
+          platform {
+            id
+          }
         }
       }
     `;

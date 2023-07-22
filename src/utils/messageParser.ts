@@ -23,11 +23,11 @@ export function extractCreateServiceDetails(inputString: string): IFormValues {
   return { title, rateAmount, rateToken, keywords: '', about: '' };
 }
 
-export function extractID(inputString: string): number | null {
-  const idPattern = /id:(\d+)/;
+export function extractID(inputString: string): string | null {
+  const idPattern = /id:(\d+(?:-\d+)?)/;
   const matches = inputString.match(idPattern);
   if (matches && matches.length === 2) {
-    return parseInt(matches[1]);
+    return matches[1];
   }
   return null;
 }

@@ -4,8 +4,10 @@ import HelloWorkContext from '../../../context/helloWork';
 import { formatDateDivider } from '../../../utils/dates';
 import { formatDateTime } from '../utils/messaging';
 import { ChatMessageStatus, XmtpChatMessage } from '../utils/types';
-import GigMessageCard from './GigMessageCard';
+import ServiceMessageCard from './ServiceMessageCard';
 import { extractID } from '../../../utils/messageParser';
+import ProposalMessageCard from './proposalMessageCard';
+import ProposalValidatedMessageCard from './ProposalValidatedMessageCard';
 
 interface IMessageCardProps {
   message: XmtpChatMessage;
@@ -14,9 +16,13 @@ interface IMessageCardProps {
 
 const formatMessage = (message: string) => {
   const id = extractID(message);
+  console.log('formatMessage', id, message);
   if (message.includes('/create-service') && id) {
-    console.log('GigMessageCard message', message);
-    return <GigMessageCard id={id} />;
+    return <ServiceMessageCard id={id} />;
+  } else if (message.includes('/create-proposal') && id) {
+    return <ProposalMessageCard id={id} />;
+  } else if (message.includes('/validate-proposal') && id) {
+    return <ProposalValidatedMessageCard id={id} />;
   }
   return message;
 };

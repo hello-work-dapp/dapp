@@ -188,7 +188,7 @@ function ProposalForm({
           },
           provider,
           tx,
-          'proposalRequest',
+          'proposal',
           cid,
         );
         setSubmitting(false);
