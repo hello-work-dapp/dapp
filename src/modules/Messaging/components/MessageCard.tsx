@@ -5,6 +5,7 @@ import { formatDateDivider } from '../../../utils/dates';
 import { formatDateTime } from '../utils/messaging';
 import { ChatMessageStatus, XmtpChatMessage } from '../utils/types';
 import GigMessageCard from './GigMessageCard';
+import { extractID } from '../../../utils/messageParser';
 
 interface IMessageCardProps {
   message: XmtpChatMessage;
@@ -12,8 +13,10 @@ interface IMessageCardProps {
 }
 
 const formatMessage = (message: string) => {
-  if (message.includes('/create-gig')) {
-    return <GigMessageCard id='1' />;
+  const id = extractID(message);
+  if (message.includes('/create-service') && id) {
+    console.log('GigMessageCard message', message);
+    return <GigMessageCard id={id} />;
   }
   return message;
 };

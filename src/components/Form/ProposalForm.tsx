@@ -21,7 +21,7 @@ import ServiceItem from '../ServiceItem';
 import SubmitButton from './SubmitButton';
 import { postToIPFS } from '../../utils/ipfs';
 
-interface IFormValues {
+export interface IFormValues {
   about: string;
   rateToken: string;
   rateAmount: number;

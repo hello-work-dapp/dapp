@@ -19,7 +19,7 @@ import { delegateCreateService } from '../request';
 import { useChainId } from '../../hooks/useChainId';
 import { useConfig } from '../../hooks/useConfig';
 
-interface IFormValues {
+export interface IFormValues {
   title: string;
   about: string;
   keywords: string;
@@ -105,7 +105,6 @@ function ServiceForm() {
             title: values.title,
             about: values.about,
             keywords: values.keywords,
-            role: 'buyer',
             rateToken: values.rateToken,
             rateAmount: parsedRateAmountString,
           }),

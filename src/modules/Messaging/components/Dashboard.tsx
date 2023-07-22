@@ -4,15 +4,11 @@ import { useContext, useState } from 'react';
 import { useProvider, useSigner } from 'wagmi';
 import Steps from '../../../components/Steps';
 import HelloWorkContext from '../../../context/helloWork';
-import ServiceRegistry from '../../../contracts/ABI/TalentLayerService.json';
+import { createService } from '../../../contracts/createService';
 import useAllowedTokens from '../../../hooks/useAllowedTokens';
 import { useChainId } from '../../../hooks/useChainId';
 import { useConfig } from '../../../hooks/useConfig';
 import useUserByAddress from '../../../hooks/useUserByAddress';
-import { postToIPFS } from '../../../utils/ipfs';
-import { getServiceSignature } from '../../../utils/signature';
-import { createMultiStepsTransactionToast } from '../../../utils/toast';
-import { parseRateAmount } from '../../../utils/web3';
 import { XmtpContext } from '../context/XmtpContext';
 import useSendMessage from '../hooks/useSendMessage';
 import useStreamConversations from '../hooks/useStreamConversations';
@@ -21,15 +17,15 @@ import { ChatMessageStatus, XmtpChatMessage } from '../utils/types';
 import CardHeader from './CardHeader';
 import MessageComposer from './MessageComposer';
 import MessageList from './MessageList';
+import { extractCreateServiceDetails } from '../../../utils/messageParser';
 
 function Dashboard() {
   const chainId = useChainId();
-  const config = useConfig();
   const { account, user } = useContext(HelloWorkContext);
-  const provider = useProvider({ chainId });
   const { data: signer } = useSigner({
     chainId,
   });
+  const provider = useProvider({ chainId });
   const { providerState, setProviderState } = useContext(XmtpContext);
   const [messageContent, setMessageContent] = useState<string>('');
   const router = useRouter();
@@ -55,72 +51,30 @@ function Dashboard() {
   };
 
   const sendNewMessage = async () => {
-    if (signer && account?.address && messageContent && providerState && setProviderState) {
+    if (signer && user && account?.address && messageContent && providerState && setProviderState) {
       setSendingPending(true);
 
       let customMessageContent = messageContent;
-      if (messageContent.includes('create-gig')) {
-        const values = {
-          title: messageContent.replace('/create-gig', ''),
-          about: '',
-          keywords: '',
-          rateAmount: 0.001,
-          rateToken: ethers.constants.AddressZero,
-        };
-        const token = allowedTokenList.find(token => token.address === values.rateToken);
-        if (!token) {
-          console.error('invalid token');
+      console.log('sendNewMessage');
+      if (messageContent.includes('create-service')) {
+        const values = extractCreateServiceDetails(messageContent);
+        try {
+          const newId = await createService(
+            chainId,
+            signer,
+            provider,
+            user,
+            values,
+            allowedTokenList,
+          );
+          customMessageContent = messageContent + ' | id:' + newId;
+        } catch (e) {
+          console.error('An error occured', e);
           return;
         }
-        const parsedRateAmount = await parseRateAmount(
-          values.rateAmount.toString(),
-          values.rateToken,
-          token.decimals,
-        );
-        const parsedRateAmountString = parsedRateAmount.toString();
-        const cid = await postToIPFS(
-          JSON.stringify({
-            title: values.title,
-            about: values.about,
-            keywords: values.keywords,
-            role: 'buyer',
-            rateToken: values.rateToken,
-            rateAmount: parsedRateAmountString,
-          }),
-        );
-
-        // Get platform signature
-        const signature = await getServiceSignature({ profileId: Number(user?.id), cid });
-
-        const contract = new ethers.Contract(
-          config.contracts.serviceRegistry,
-          ServiceRegistry.abi,
-          signer,
-        );
-
-        const tx = await contract.createService(
-          user?.id,
-          process.env.NEXT_PUBLIC_PLATFORM_ID,
-          cid,
-          signature,
-        );
-
-        const newId = await createMultiStepsTransactionToast(
-          chainId,
-          {
-            pending: 'Creating your job...',
-            success: 'Congrats! Your job has been added',
-            error: 'An error occurred while creating your job',
-          },
-          provider,
-          tx,
-          'service',
-          cid,
-        );
-
-        customMessageContent = messageContent + ' | id:' + newId;
       }
 
+      console.log('GigMessageCardCreate', customMessageContent);
       const sentMessage: XmtpChatMessage = {
         from: account.address,
         to: selectedConversationPeerAddress,
@@ -150,7 +104,7 @@ function Dashboard() {
           ...providerState,
           conversationMessages: allMessages,
         });
-        const response = await sendMessage(messageContent);
+        const response = await sendMessage(customMessageContent);
         // Update message status & timestamp
         sentMessage.status = ChatMessageStatus.SENT;
         sentMessage.timestamp = response.sent;
