@@ -22,6 +22,9 @@ Both allow a really easy way for users to do handle there collaboration directly
 - CTA to send the fund to the escrow and validate the proposal
 - Command to release fund for a given service: `/release #338 50%`
 
+**Incoming features**
+- Command to create a review for a gig: `/create-review #338 5 stars: Perfect collaboration`
+
 # Powered BY
 ### 🛠️ TalentLayer
 
