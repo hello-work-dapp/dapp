@@ -6,7 +6,7 @@ import HelloWorkContext from '../../../context/helloWork';
 import { createService } from '../../../contracts/createService';
 import useAllowedTokens from '../../../hooks/useAllowedTokens';
 import { useChainId } from '../../../hooks/useChainId';
-import { extractCreateServiceDetails } from '../../../utils/messageParser';
+import { extractCreateServiceDetails, extractReleaseDetails } from '../../../utils/messageParser';
 import { XmtpContext } from '../context/XmtpContext';
 import useSendMessage from '../hooks/useSendMessage';
 import useStreamConversations from '../hooks/useStreamConversations';
@@ -14,6 +14,7 @@ import { NON_EXISTING_XMTP_USER_ERROR_MESSAGE } from '../hooks/useStreamMessages
 import CardHeader from './CardHeader';
 import MessageComposer from './MessageComposer';
 import MessageList from './MessageList';
+import { executeReleaseForService } from '../../../contracts/executePayment';
 
 function Dashboard() {
   const chainId = useChainId();
@@ -67,6 +68,22 @@ function Dashboard() {
           console.error('An error occured', e);
           return;
         }
+      } else if (messageContent.includes('/release')) {
+        console.log('sendNewMessage release', customMessageContent);
+
+        const releaseDetails = extractReleaseDetails(messageContent);
+        if (!releaseDetails) {
+          return;
+        }
+        executeReleaseForService(
+          chainId,
+          account.address,
+          signer,
+          provider,
+          user.id,
+          releaseDetails.serviceId,
+          releaseDetails.percent,
+        );
       }
 
       try {

@@ -6,6 +6,39 @@ import TalentLayerEscrow from './ABI/TalentLayerEscrow.json';
 import { showErrorTransactionToast } from '../utils/toast';
 import { delegateReleaseOrReimburse } from '../components/request';
 import { getConfig } from '../config';
+import { getServiceById } from '../queries/services';
+import { IService } from '../types';
+
+export const executeReleaseForService = async (
+  chainId: number,
+  userAddress: string,
+  signer: Signer,
+  provider: Provider,
+  profileId: string,
+  serviceId: string,
+  percent: number,
+): Promise<void> => {
+  const response = await getServiceById(chainId, serviceId);
+  if (!response?.data?.data?.service) {
+    throw new Error("service doesn't exist");
+  }
+  const service: IService = response.data.data.service;
+
+  const transactionId = service.transaction.id;
+
+  const percentToToken = ethers.BigNumber.from(service.transaction.amount).mul(percent).div(100);
+  executePayment(
+    chainId,
+    userAddress,
+    signer,
+    provider,
+    profileId,
+    transactionId,
+    percentToToken,
+    true,
+    false,
+  );
+};
 
 export const executePayment = async (
   chainId: number,

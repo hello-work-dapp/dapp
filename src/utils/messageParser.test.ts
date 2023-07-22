@@ -1,4 +1,4 @@
-import { extractCreateServiceDetails } from './messageParser';
+import { extractCreateServiceDetails, extractReleaseDetails } from './messageParser';
 
 test('Extract details from input string', () => {
   const inputString = 'Solidity dev to audit TalentLayerEscrow for 3 MATIC';
@@ -45,5 +45,14 @@ test('Handle token name with lowercase letters', () => {
     rateToken: 'USDC',
     about: '',
     keywords: '',
+  });
+});
+
+test('Extract details from release', () => {
+  const inputString = '/release #338 50%';
+  const result = extractReleaseDetails(inputString);
+  expect(result).toEqual({
+    serviceId: '338',
+    percent: 50,
   });
 });

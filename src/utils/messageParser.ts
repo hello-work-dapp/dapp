@@ -31,3 +31,27 @@ export function extractID(inputString: string): string | null {
   }
   return null;
 }
+
+interface IReleaseProps {
+  serviceId: string;
+  percent: number;
+}
+
+// /release #338 50%
+export function extractReleaseDetails(inputString: string): IReleaseProps | null {
+  const regex = /#(\d+)\s(\d+%)/;
+  const matches = inputString.match(regex);
+
+  if (matches) {
+    const serviceId = matches[1];
+    const percent = parseInt(matches[2]);
+
+    return {
+      serviceId,
+      percent,
+    };
+  } else {
+    console.log('Pattern not found in the string.');
+    return null;
+  }
+}

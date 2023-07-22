@@ -1,5 +1,5 @@
 const title = 'HelloWork';
-const description = 'Start Fast with XMTP & TalentLayer';
+const description = 'Making work as simple as a chat';
 const url = 'https://www.yourdomain.com';
 
 export default {

@@ -62,6 +62,7 @@ export type IAccount = {
 // TODO: add the rest of the fields
 export type ITransaction = {
   id: string;
+  amount: string;
 };
 
 export type IService = {
