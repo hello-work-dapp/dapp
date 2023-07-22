@@ -6,9 +6,9 @@ import { formatDateTime } from '../utils/messaging';
 import { ChatMessageStatus, XmtpChatMessage } from '../utils/types';
 import ServiceMessageCard from './ServiceMessageCard';
 import { extractID } from '../../../utils/messageParser';
-import ProposalMessageCard from './proposalMessageCard';
 import ProposalValidatedMessageCard from './ProposalValidatedMessageCard';
 import ReleaseMessageCard from './ReleaseMessageCard';
+import ProposalMessageCard from './ProposalMessageCard';
 
 interface IMessageCardProps {
   message: XmtpChatMessage;
