@@ -1,7 +1,7 @@
 {
-  "short_name": "StarterKit",
-  "name": "StarterKit",
-  "description": "Start Fast with XMTP & TalentLayer",
+  "short_name": "HelloWork",
+  "name": "HelloWork",
+  "description": "Makingworkas simple as a chat",
   "icons": [
     {
       "src": "favicon.ico",

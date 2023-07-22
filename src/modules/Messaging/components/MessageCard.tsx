@@ -1,11 +1,10 @@
 import { useContext } from 'react';
 import Loading from '../../../components/Loading';
-import StarterKitContext from '../../../context/starterKit';
-import { shortenString } from '../../../utils';
+import HelloWorkContext from '../../../context/helloWork';
 import { formatDateDivider } from '../../../utils/dates';
 import { formatDateTime } from '../utils/messaging';
 import { ChatMessageStatus, XmtpChatMessage } from '../utils/types';
-import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
+import GigMessageCard from './GigMessageCard';
 
 interface IMessageCardProps {
   message: XmtpChatMessage;
@@ -13,14 +12,14 @@ interface IMessageCardProps {
 }
 
 const formatMessage = (message: string) => {
-  if (message.includes('/pattern?')) {
-    return <p>Formated message</p>;
+  if (message.includes('/create-gig')) {
+    return <GigMessageCard id='1' />;
   }
   return message;
 };
 
 const MessageCard = ({ message, dateHasChanged }: IMessageCardProps) => {
-  const { account } = useContext(StarterKitContext);
+  const { account } = useContext(HelloWorkContext);
 
   const isSender = message.from.toLowerCase() === account?.address?.toLowerCase();
 

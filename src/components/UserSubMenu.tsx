@@ -2,12 +2,12 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { useDisconnect } from 'wagmi';
-import StarterKitContext from '../context/starterKit';
+import HelloWorkContext from '../context/helloWork';
 import { truncateAddress } from '../utils';
 import Link from 'next/link';
 
 function UserSubMenu() {
-  const { account, user } = useContext(StarterKitContext);
+  const { account, user } = useContext(HelloWorkContext);
   const router = useRouter();
   const { disconnect } = useDisconnect();
 

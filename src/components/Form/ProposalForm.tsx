@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { useProvider, useSigner } from 'wagmi';
 import * as Yup from 'yup';
-import StarterKitContext from '../../context/starterKit';
+import HelloWorkContext from '../../context/helloWork';
 import ServiceRegistry from '../../contracts/ABI/TalentLayerService.json';
 import useAllowedTokens from '../../hooks/useAllowedTokens';
 import { useChainId } from '../../hooks/useChainId';
@@ -53,7 +53,7 @@ function ProposalForm({
   });
   const router = useRouter();
   const allowedTokenList = useAllowedTokens();
-  const { isActiveDelegate } = useContext(StarterKitContext);
+  const { isActiveDelegate } = useContext(HelloWorkContext);
   const [aiLoading, setAiLoading] = useState(false);
 
   if (allowedTokenList.length === 0) {

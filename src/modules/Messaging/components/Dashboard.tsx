@@ -1,10 +1,18 @@
+import { ethers } from 'ethers';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
-import { useSigner } from 'wagmi';
+import { useProvider, useSigner } from 'wagmi';
 import Steps from '../../../components/Steps';
-import StarterKitContext from '../../../context/starterKit';
+import HelloWorkContext from '../../../context/helloWork';
+import ServiceRegistry from '../../../contracts/ABI/TalentLayerService.json';
+import useAllowedTokens from '../../../hooks/useAllowedTokens';
 import { useChainId } from '../../../hooks/useChainId';
+import { useConfig } from '../../../hooks/useConfig';
 import useUserByAddress from '../../../hooks/useUserByAddress';
+import { postToIPFS } from '../../../utils/ipfs';
+import { getServiceSignature } from '../../../utils/signature';
+import { createMultiStepsTransactionToast } from '../../../utils/toast';
+import { parseRateAmount } from '../../../utils/web3';
 import { XmtpContext } from '../context/XmtpContext';
 import useSendMessage from '../hooks/useSendMessage';
 import useStreamConversations from '../hooks/useStreamConversations';
@@ -16,7 +24,9 @@ import MessageList from './MessageList';
 
 function Dashboard() {
   const chainId = useChainId();
-  const { account, user } = useContext(StarterKitContext);
+  const config = useConfig();
+  const { account, user } = useContext(HelloWorkContext);
+  const provider = useProvider({ chainId });
   const { data: signer } = useSigner({
     chainId,
   });
@@ -27,6 +37,7 @@ function Dashboard() {
   const selectedConversationPeerAddress = address as string;
   const [sendingPending, setSendingPending] = useState(false);
   const [messageSendingErrorMsg, setMessageSendingErrorMsg] = useState('');
+  const allowedTokenList = useAllowedTokens();
 
   const { sendMessage } = useSendMessage(
     (selectedConversationPeerAddress as string) ? selectedConversationPeerAddress : '',
@@ -44,12 +55,76 @@ function Dashboard() {
   };
 
   const sendNewMessage = async () => {
-    if (account?.address && messageContent && providerState && setProviderState) {
+    if (signer && account?.address && messageContent && providerState && setProviderState) {
       setSendingPending(true);
+
+      let customMessageContent = messageContent;
+      if (messageContent.includes('create-gig')) {
+        const values = {
+          title: messageContent.replace('/create-gig', ''),
+          about: '',
+          keywords: '',
+          rateAmount: 0.001,
+          rateToken: ethers.constants.AddressZero,
+        };
+        const token = allowedTokenList.find(token => token.address === values.rateToken);
+        if (!token) {
+          console.error('invalid token');
+          return;
+        }
+        const parsedRateAmount = await parseRateAmount(
+          values.rateAmount.toString(),
+          values.rateToken,
+          token.decimals,
+        );
+        const parsedRateAmountString = parsedRateAmount.toString();
+        const cid = await postToIPFS(
+          JSON.stringify({
+            title: values.title,
+            about: values.about,
+            keywords: values.keywords,
+            role: 'buyer',
+            rateToken: values.rateToken,
+            rateAmount: parsedRateAmountString,
+          }),
+        );
+
+        // Get platform signature
+        const signature = await getServiceSignature({ profileId: Number(user?.id), cid });
+
+        const contract = new ethers.Contract(
+          config.contracts.serviceRegistry,
+          ServiceRegistry.abi,
+          signer,
+        );
+
+        const tx = await contract.createService(
+          user?.id,
+          process.env.NEXT_PUBLIC_PLATFORM_ID,
+          cid,
+          signature,
+        );
+
+        const newId = await createMultiStepsTransactionToast(
+          chainId,
+          {
+            pending: 'Creating your job...',
+            success: 'Congrats! Your job has been added',
+            error: 'An error occurred while creating your job',
+          },
+          provider,
+          tx,
+          'service',
+          cid,
+        );
+
+        customMessageContent = messageContent + ' | id:' + newId;
+      }
+
       const sentMessage: XmtpChatMessage = {
         from: account.address,
         to: selectedConversationPeerAddress,
-        messageContent,
+        messageContent: customMessageContent,
         timestamp: new Date(),
         status: ChatMessageStatus.PENDING,
       };

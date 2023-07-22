@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import StarterKitContext from '../../../context/starterKit';
+import HelloWorkContext from '../../../context/helloWork';
 import Loading from '../../../components/Loading';
 import UserIncomes from '../../../components/UserIncomes';
 
 function Incomes() {
-  const { user } = useContext(StarterKitContext);
+  const { user } = useContext(HelloWorkContext);
 
   if (!user) {
     return <Loading />;

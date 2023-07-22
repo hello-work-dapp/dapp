@@ -1,6 +1,6 @@
 import { ISismoGroup } from '../utils/types';
 import { useContext } from 'react';
-import StarterKitContext from '../../../context/starterKit';
+import HelloWorkContext from '../../../context/helloWork';
 import SismoHelpPopover from './SismoHelpPopover';
 import Image from 'next/image';
 
@@ -11,7 +11,7 @@ function SismoGroupCard({
   sismoGroupData: ISismoGroup;
   userAddrss: string;
 }) {
-  const { user } = useContext(StarterKitContext);
+  const { user } = useContext(HelloWorkContext);
   const isConnectedUser = () => {
     return user?.address === userAddrss;
   };

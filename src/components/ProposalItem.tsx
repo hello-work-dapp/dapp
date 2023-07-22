@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useContext } from 'react';
-import StarterKitContext from '../context/starterKit';
+import HelloWorkContext from '../context/helloWork';
 import useServiceById from '../hooks/useServiceById';
 import { IProposal, ProposalStatusEnum, ServiceStatusEnum } from '../types';
 import { renderTokenAmount } from '../utils/conversion';
@@ -9,7 +9,7 @@ import ValidateProposalModal from './Modal/ValidateProposalModal';
 import Image from 'next/image';
 
 function ProposalItem({ proposal }: { proposal: IProposal }) {
-  const { user, account } = useContext(StarterKitContext);
+  const { user, account } = useContext(HelloWorkContext);
   const service = useServiceById(proposal.service.id);
 
   if (!service) {

@@ -4,7 +4,7 @@ import { getUserByAddress, getUserById, getUserByIds } from '../queries/users';
 import { IAccount, IHive, IUser } from '../types';
 import { useChainId } from '../hooks/useChainId';
 
-const StarterKitContext = createContext<{
+const HelloWorkContext = createContext<{
   user?: IUser;
   account?: IAccount;
   isActiveDelegate: boolean;
@@ -17,7 +17,7 @@ const StarterKitContext = createContext<{
   loading: true,
 });
 
-const StarterKitProvider = ({ children }: { children: ReactNode }) => {
+const HelloWorkProvider = ({ children }: { children: ReactNode }) => {
   const chainId = useChainId();
   const [user, setUser] = useState<IUser | undefined>();
   const account = useAccount();
@@ -79,9 +79,9 @@ const StarterKitProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [account.address, user?.id, isActiveDelegate, loading]);
 
-  return <StarterKitContext.Provider value={value}>{children}</StarterKitContext.Provider>;
+  return <HelloWorkContext.Provider value={value}>{children}</HelloWorkContext.Provider>;
 };
 
-export { StarterKitProvider };
+export { HelloWorkProvider };
 
-export default StarterKitContext;
+export default HelloWorkContext;

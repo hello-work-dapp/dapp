@@ -1,12 +1,12 @@
 import { SearchOutline } from 'heroicons-react';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
-import StarterKitContext from '../../../context/starterKit';
+import HelloWorkContext from '../../../context/helloWork';
 
 function SearchModal() {
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState('');
-  const { account } = useContext(StarterKitContext);
+  const { account } = useContext(HelloWorkContext);
   const router = useRouter();
 
   const handleChat = () => {

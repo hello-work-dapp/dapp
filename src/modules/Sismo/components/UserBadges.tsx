@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import StarterKitContext from '../../../context/starterKit';
+import HelloWorkContext from '../../../context/helloWork';
 import { IUser } from '../../../types';
 import useSismoBadgesPerAddress from '../hooks/useSismoBadgesPerAddress';
 import { TALENTLAYER_GROUPS } from '../utils/sismoGroupsData';
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 function UserBadges({ user }: IProps) {
-  const { user: currentUser } = useContext(StarterKitContext);
+  const { user: currentUser } = useContext(HelloWorkContext);
   const sismoBadges = useSismoBadgesPerAddress(user.address);
 
   const groupsData: ISismoGroup[] = [...TALENTLAYER_GROUPS];

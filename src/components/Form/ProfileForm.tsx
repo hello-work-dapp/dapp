@@ -4,7 +4,7 @@ import { Field, Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
 import { useProvider, useSigner } from 'wagmi';
 import * as Yup from 'yup';
-import StarterKitContext from '../../context/starterKit';
+import HelloWorkContext from '../../context/helloWork';
 import TalentLayerID from '../../contracts/ABI/TalentLayerID.json';
 import { postToIPFS } from '../../utils/ipfs';
 import { createMultiStepsTransactionToast, showErrorTransactionToast } from '../../utils/toast';
@@ -35,14 +35,14 @@ function ProfileForm({ callback }: { callback?: () => void }) {
   const config = useConfig();
   const chainId = useChainId();
   const { open: openConnectModal } = useWeb3Modal();
-  const { user } = useContext(StarterKitContext);
+  const { user } = useContext(HelloWorkContext);
   const provider = useProvider({ chainId });
   const [aiLoading, setAiLoading] = useState(false);
   const userDescription = user?.id ? useUserById(user?.id)?.description : null;
   const { data: signer } = useSigner({
     chainId,
   });
-  const { isActiveDelegate } = useContext(StarterKitContext);
+  const { isActiveDelegate } = useContext(HelloWorkContext);
 
   if (!user?.id) {
     return <Loading />;
