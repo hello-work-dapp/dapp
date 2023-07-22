@@ -2,6 +2,10 @@
 
 Making work as simple as a chat
 
+## Website
+
+- https://hellowork-nu.vercel.app
+
 ## Install
 
 - `cp .env.example .env`
